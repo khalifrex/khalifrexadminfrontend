@@ -28,13 +28,13 @@ const VariantOfferManager = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showCreateOfferModal, setShowCreateOfferModal] = useState(false);
   
-  // Data states
+
   const [variants, setVariants] = useState([]);
   const [offers, setOffers] = useState([]);
-  const [products, setProducts] = useState([]); // For parent product selection
+  const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({ currentPage: 1, totalPages: 1, totalItems: 0 });
   
-  // Form states
+
   const [newVariant, setNewVariant] = useState({
     parentId: '',
     name: '',
@@ -65,7 +65,7 @@ const VariantOfferManager = () => {
 
   const API_URL = 'http://localhost:3092';
 
-  // API Helper Functions
+
   const apiRequest = async (endpoint, options = {}) => {
     try {
       const response = await fetch(`${API_URL}${endpoint}`, {
@@ -90,7 +90,7 @@ const VariantOfferManager = () => {
     }
   };
 
-  // Data fetching functions
+
   const fetchVariants = async (page = 1, search = '') => {
     try {
       setLoading(true);
@@ -138,7 +138,7 @@ const VariantOfferManager = () => {
     }
   };
 
-  // Action functions
+
   const createVariant = async (variantData) => {
     try {
       setLoading(true);
@@ -213,7 +213,7 @@ const VariantOfferManager = () => {
     }
   };
 
-  // Form reset functions
+
   const resetVariantForm = () => {
     setNewVariant({
       parentId: '',
@@ -246,7 +246,7 @@ const VariantOfferManager = () => {
     });
   };
 
-  // Auto-dismiss alerts
+
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => setError(null), 5000);
