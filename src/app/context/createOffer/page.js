@@ -261,12 +261,11 @@ const VariantOfferManager = () => {
     }
   }, [success]);
 
-  // Initial data loading
+
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  // Tab-specific data loading
   useEffect(() => {
     if (activeTab === 'variants') {
       fetchVariants();
@@ -275,7 +274,6 @@ const VariantOfferManager = () => {
     }
   }, [activeTab]);
 
-  // Search functionality
   useEffect(() => {
     const debounceSearch = setTimeout(() => {
       if (activeTab === 'variants') {
@@ -288,7 +286,6 @@ const VariantOfferManager = () => {
     return () => clearTimeout(debounceSearch);
   }, [searchTerm, activeTab]);
 
-  // Alert components
   const AlertMessage = ({ type, message, onClose }) => (
     <div className={`rounded-lg p-4 mb-6 ${
       type === 'error' ? 'bg-red-50 border border-red-200' : 'bg-green-50 border border-green-200'
@@ -314,7 +311,7 @@ const VariantOfferManager = () => {
     </div>
   );
 
-  // Create Variant Modal
+
   const CreateVariantModal = ({ isOpen, onClose }) => {
     const [attributes, setAttributes] = useState([{ key: '', value: '' }]);
 
@@ -335,7 +332,6 @@ const VariantOfferManager = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       
-      // Convert attributes array to object
       const attributesObj = {};
       attributes.forEach(attr => {
         if (attr.key && attr.value) {
@@ -364,7 +360,7 @@ const VariantOfferManager = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Parent Product Selection */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Parent Product *
@@ -384,7 +380,7 @@ const VariantOfferManager = () => {
               </select>
             </div>
 
-            {/* Basic Info */}
+            {}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -414,7 +410,7 @@ const VariantOfferManager = () => {
               </div>
             </div>
 
-            {/* Product Identifiers */}
+           
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">UPC</label>
@@ -445,7 +441,7 @@ const VariantOfferManager = () => {
               </div>
             </div>
 
-            {/* Variant Attributes */}
+         
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-medium text-gray-700">
@@ -488,7 +484,6 @@ const VariantOfferManager = () => {
               </div>
             </div>
 
-            {/* Description */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Description
@@ -502,7 +497,7 @@ const VariantOfferManager = () => {
               />
             </div>
 
-            {/* Weight */}
+         
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Weight (kg)
@@ -517,7 +512,7 @@ const VariantOfferManager = () => {
               />
             </div>
 
-            {/* Dimensions */}
+           
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Dimensions
@@ -570,7 +565,7 @@ const VariantOfferManager = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
+            
             <div className="flex gap-3 pt-4">
               <button
                 type="button"
@@ -601,7 +596,6 @@ const VariantOfferManager = () => {
     );
   };
 
-  // Create Offer Modal
   const CreateOfferModal = ({ isOpen, onClose }) => {
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -621,7 +615,7 @@ const VariantOfferManager = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Variant Selection */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Product Variant *
@@ -641,7 +635,7 @@ const VariantOfferManager = () => {
               </select>
             </div>
 
-            {/* Price and Stock */}
+            {}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -674,7 +668,7 @@ const VariantOfferManager = () => {
               </div>
             </div>
 
-            {/* Condition */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Condition *
@@ -691,7 +685,7 @@ const VariantOfferManager = () => {
               </select>
             </div>
 
-            {/* Seller SKU */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Seller SKU
@@ -705,7 +699,7 @@ const VariantOfferManager = () => {
               />
             </div>
 
-            {/* Shipping Info */}
+            {}
             <div className="space-y-3">
               <h3 className="text-sm font-medium text-gray-700">Shipping Information</h3>
               
@@ -766,7 +760,7 @@ const VariantOfferManager = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
+            {}
             <div className="flex gap-3 pt-4">
               <button
                 type="button"
@@ -797,7 +791,7 @@ const VariantOfferManager = () => {
     );
   };
 
-  // Pagination Component
+
   const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     if (totalPages <= 1) return null;
 
@@ -859,7 +853,7 @@ const VariantOfferManager = () => {
     );
   };
 
-  // Variants Table Component
+
   const VariantsTable = () => (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse border border-gray-200 rounded-lg">
@@ -945,14 +939,14 @@ const VariantOfferManager = () => {
                 <td className="border border-gray-200 px-4 py-3">
                   <div className="flex items-center justify-center gap-2">
                     <button
-                      onClick={() => {/* View variant details */}}
+                      onClick={() => {}}
                       className="p-1 text-blue-600 hover:bg-blue-50 rounded"
                       title="View Details"
                     >
                       <Eye className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => {/* Edit variant */}}
+                      onClick={() => {}}
                       className="p-1 text-gray-600 hover:bg-gray-50 rounded"
                       title="Edit Variant"
                     >
@@ -968,7 +962,7 @@ const VariantOfferManager = () => {
     </div>
   );
 
-  // Offers Table Component
+
   const OffersTable = () => (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse border border-gray-200 rounded-lg">
@@ -1068,14 +1062,14 @@ const VariantOfferManager = () => {
                 <td className="border border-gray-200 px-4 py-3">
                   <div className="flex items-center justify-center gap-2">
                     <button
-                      onClick={() => {/* View offer details */}}
+                      onClick={() => {}}
                       className="p-1 text-blue-600 hover:bg-blue-50 rounded"
                       title="View Details"
                     >
                       <Eye className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => {/* Edit offer */}}
+                      onClick={() => {}}
                       className="p-1 text-gray-600 hover:bg-gray-50 rounded"
                       title="Edit Offer"
                     >
@@ -1100,17 +1094,17 @@ const VariantOfferManager = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 bg-gray-50 min-h-screen">
-      {/* Header */}
+      {}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Variant & Offer Management</h1>
         <p className="text-gray-600">Manage product variants and their corresponding offers</p>
       </div>
 
-      {/* Alerts */}
+      {}
       {error && <AlertMessage type="error" message={error} onClose={() => setError(null)} />}
       {success && <AlertMessage type="success" message={success} onClose={() => setSuccess(null)} />}
 
-      {/* Tab Navigation */}
+      {}
       <div className="bg-white rounded-lg shadow-sm mb-6">
         <div className="border-b border-gray-200">
           <nav className="flex space-x-8 px-6">
@@ -1139,11 +1133,11 @@ const VariantOfferManager = () => {
           </nav>
         </div>
 
-        {/* Tab Content Header */}
+        {}
         <div className="p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div className="flex items-center gap-4">
-              {/* Search */}
+              {}
               <div className="relative">
                 <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -1155,7 +1149,7 @@ const VariantOfferManager = () => {
                 />
               </div>
 
-              {/* Refresh Button */}
+              {}
               <button
                 onClick={() => {
                   if (activeTab === 'variants') {
@@ -1171,7 +1165,7 @@ const VariantOfferManager = () => {
               </button>
             </div>
 
-            {/* Action Buttons */}
+            {}
             <div className="flex gap-3">
               {activeTab === 'variants' && (
                 <button
@@ -1194,10 +1188,10 @@ const VariantOfferManager = () => {
             </div>
           </div>
 
-          {/* Table */}
+          {}
           {activeTab === 'variants' ? <VariantsTable /> : <OffersTable />}
 
-          {/* Pagination */}
+          {}
           <Pagination
             currentPage={pagination.currentPage}
             totalPages={pagination.totalPages}
@@ -1212,7 +1206,7 @@ const VariantOfferManager = () => {
         </div>
       </div>
 
-      {/* Modals */}
+      {}
       <CreateVariantModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
       <CreateOfferModal isOpen={showCreateOfferModal} onClose={() => setShowCreateOfferModal(false)} />
     </div>

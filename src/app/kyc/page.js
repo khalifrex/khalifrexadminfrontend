@@ -19,7 +19,7 @@ export default function KycAdminPage() {
       });
       const data = await res.json();
       setKycRequests(data.kycRequests || []);
-         // Format dates safely on client
+
     const formats = {};
     (data.kycRequests || []).forEach((req) => {
       formats[req.user._id] = req.user.submittedAt
@@ -48,7 +48,7 @@ export default function KycAdminPage() {
           method: "PATCH",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: reasonOrMessage }), // optional message
+          body: JSON.stringify({ message: reasonOrMessage }),
         }
       );
       if (!res.ok) throw new Error("Failed to approve");
@@ -133,7 +133,7 @@ export default function KycAdminPage() {
         </div>
       )}
 
-      {/* Approve Modal */}
+      {}
       {approveModal.open && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded p-6 w-full max-w-md shadow">
@@ -165,7 +165,7 @@ export default function KycAdminPage() {
         </div>
       )}
 
-      {/* Reject Modal */}
+      {}
       {rejectModal.open && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded p-6 w-full max-w-md shadow">

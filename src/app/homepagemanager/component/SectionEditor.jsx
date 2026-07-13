@@ -31,8 +31,6 @@ const label = "mb-1 block text-xs font-semibold uppercase tracking-wide text-gra
 function uid() {
   return `tmp_${Math.random().toString(36).slice(2, 9)}`;
 }
-
-// ── Image upload field ────────────────────────────────────────────────────────
 function ImageField({ value, onChange }) {
   const [uploading, setUploading] = useState(false);
   const handleFile = async (e) => {
@@ -48,13 +46,12 @@ function ImageField({ value, onChange }) {
     <div className="flex items-center gap-3">
       <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
         {value ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img src={value} alt="" className="h-full w-full object-cover" />
         ) : (
           <ImageIcon size={20} className="text-gray-300" />
         )}
       </div>
-      <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50">
+      <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-black hover:bg-gray-50">
         {uploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
         {uploading ? "Uploading…" : "Upload image"}
         <input type="file" accept="image/*" className="hidden" onChange={handleFile} />
@@ -67,8 +64,6 @@ function ImageField({ value, onChange }) {
     </div>
   );
 }
-
-// ── Action picker (reused for items + tiles) ─────────────────────────────────
 function ActionPicker({ action, onChange }) {
   const set = (patch) => onChange({ ...action, ...patch });
   const setParam = (patch) =>
@@ -150,8 +145,6 @@ function ActionPicker({ action, onChange }) {
     </div>
   );
 }
-
-// ── Tiles editor (the 2x2 box) ───────────────────────────────────────────────
 function TilesEditor({ tiles, onChange }) {
   const update = (i, patch) =>
     onChange(tiles.map((t, idx) => (idx === i ? { ...t, ...patch } : t)));
@@ -199,8 +192,6 @@ function TilesEditor({ tiles, onChange }) {
     </div>
   );
 }
-
-// ── Item editor ──────────────────────────────────────────────────────────────
 function ItemEditor({ item, type, onChange, onRemove }) {
   const set = (patch) => onChange({ ...item, ...patch });
   const usesTiles = type === "category_grid";
@@ -313,7 +304,7 @@ function ItemEditor({ item, type, onChange, onRemove }) {
           </div>
         )}
 
-        {/* item-level action (hidden for category_grid cards in tile mode — tiles carry links) */}
+        {}
         {!(usesTiles && hasTiles && type === "category_grid") && (
           <ActionPicker action={item} onChange={(a) => set(a)} />
         )}
@@ -324,8 +315,6 @@ function ItemEditor({ item, type, onChange, onRemove }) {
     </div>
   );
 }
-
-// ── Main editor ──────────────────────────────────────────────────────────────
 export default function SectionEditor({ section, onClose, onSaved }) {
   const isNew = !section?.sectionId;
   const [type, setType] = useState(section?.type || "hero");
@@ -413,7 +402,7 @@ export default function SectionEditor({ section, onClose, onSaved }) {
             </div>
           </div>
 
-          {/* Type-specific settings */}
+          {}
           {type === "hero" && (
             <div>
               <label className={label}>Autoplay (ms)</label>
@@ -516,7 +505,7 @@ export default function SectionEditor({ section, onClose, onSaved }) {
             </div>
           )}
 
-          {/* Items */}
+          {}
           {usesItems && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">

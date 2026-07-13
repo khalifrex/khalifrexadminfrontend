@@ -16,11 +16,9 @@ const apiCall = async (endpoint, options = {}) => {
   }
 };
 
-// ── Public ───────────────────────────────────────────────────────────────────
 export const getHomepage = () => apiCall("/homepage");
 export const getCollection = (slug) => apiCall(`/homepage/collection/${slug}`);
 
-// ── Admin ────────────────────────────────────────────────────────────────────
 export const getAdminHomepage = () => apiCall("/homepage/admin");
 
 export const createSection = (payload) =>
@@ -43,7 +41,7 @@ export const updateCollection = (id, payload) =>
 export const deleteCollection = (id) =>
   apiCall(`/homepage/collections/${id}`, { method: "DELETE" });
 
-// Image upload (multipart — do NOT set Content-Type, the browser sets the boundary)
+
 export const uploadImage = async (file) => {
   try {
     const fd = new FormData();

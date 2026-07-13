@@ -1,16 +1,3 @@
-/**
- * Single source of truth for "where does clicking this go?".
- * Used by every homepage banner, card, and tile.
- *
- *   category   -> /category/{actionValue}                      (actionValue = categoryId)
- *   search     -> /search?q={actionValue}&maxPrice=..&minPrice=..&brands=..
- *   collection -> /collection/{actionValue}                    (actionValue = slug)
- *   url        -> {actionValue}                                 (internal path or external URL)
- *   none/empty -> null                                          (not clickable)
- *
- * Price params use minPrice/maxPrice to match your existing /category page
- * convention. See the SearchProducts patch so /search honors them too.
- */
 export function buildActionHref(action) {
   if (!action) return null;
   const { actionType, actionValue, actionParams } = action;
@@ -47,7 +34,7 @@ export function buildActionHref(action) {
   }
 }
 
-/** True for links that should open in a new tab / bypass the SPA router. */
+
 export function isExternalHref(href) {
   return typeof href === "string" && /^https?:\/\//i.test(href);
 }

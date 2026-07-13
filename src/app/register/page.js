@@ -26,7 +26,7 @@ export default function AdminRegister() {
         password
       }, { withCredentials: true });
 
-      router.push('/admin'); // Redirect to admin dashboard after success
+      router.push('/admin'); 
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     }

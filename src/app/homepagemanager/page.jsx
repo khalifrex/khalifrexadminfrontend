@@ -89,8 +89,6 @@ export default function HomepageManager() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(undefined);
   const [savingOrder, setSavingOrder] = useState(false);
-
-  // Fix: inline async fetch directly in effect, no useCallback dependency
   useEffect(() => {
     let cancelled = false;
 
@@ -106,8 +104,6 @@ export default function HomepageManager() {
     fetchSections();
     return () => { cancelled = true; };
   }, []);
-
-  // Standalone load() for manual refreshes (e.g. reorder failure)
   const load = async () => {
     setLoading(true);
     const res = await homepageService.getAdminHomepage();
@@ -241,14 +237,11 @@ export default function HomepageManager() {
     </div>
   );
 }
-
-// Debounced autosave — fires 600ms after a drag settles
 function OrderAutosave({ sections, onSave, loading }) {
   useEffect(() => {
     if (loading || sections.length === 0) return;
     const t = setTimeout(() => onSave(sections), 600);
     return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sections.map((s) => s.sectionId).join("|")]);
   return null;
 }

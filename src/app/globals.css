@@ -18,7 +18,7 @@
     --foreground: #ededed;
   }
 }
-/* enable class-based dark mode */
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
