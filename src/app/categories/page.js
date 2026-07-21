@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 
@@ -14,15 +14,24 @@ export default function ManageCategories() {
     imageFile: null,
     attributes: []
   });
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  const fileInputRef = useRef(null);
 
   const fetchCategories = async () => {
     const res = await axios.get('http://localhost:3092/admin/categories', { withCredentials: true });
     setCategories(res.data);
   };
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function load() {
+      const res = await axios.get('http://localhost:3092/admin/categories', { withCredentials: true });
+      if (!ignore) setCategories(res.data);
+    }
+
+    load();
+    return () => { ignore = true; };
+  }, []);
 
   const handleAttributeChange = (index, field, value) => {
     const updated = [...form.attributes];
@@ -43,6 +52,12 @@ export default function ManageCategories() {
     setForm({ ...form, attributes: updated });
   };
 
+  const resetForm = () => {
+    setForm({ name: '', slug: '', image: '', imageFile: null, attributes: [] });
+    setEditingCategory(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,8 +73,7 @@ export default function ManageCategories() {
       await axios.post('http://localhost:3092/admin/create/category', data, { withCredentials: true });
     }
 
-    setForm({ name: '', slug: '', image: '', imageFile: null, attributes: [] });
-    setEditingCategory(null);
+    resetForm();
     fetchCategories();
   };
 
@@ -72,6 +86,7 @@ export default function ManageCategories() {
       imageFile: null,
       attributes: category.attributes || []
     });
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   return (
@@ -99,6 +114,7 @@ export default function ManageCategories() {
         <div>
           <label className="block font-medium text-gray-700 mb-2">Image</label>
           <input
+            ref={fileInputRef}
             type="file"
             accept="image/*"
             onChange={(e) => setForm({ ...form, imageFile: e.target.files[0] })}
@@ -106,14 +122,13 @@ export default function ManageCategories() {
           {form.image && (
             <div className="relative mt-3 w-24 h-24 border rounded overflow-hidden">
               <Image
-              src={form.image}
-              alt="Preview"
-              width={96}
-              height={96}
-              className="object-cover"
-              priority
-            />
-
+                src={form.image}
+                alt="Preview"
+                width={96}
+                height={96}
+                className="object-cover"
+                priority
+              />
             </div>
           )}
         </div>
@@ -178,12 +193,23 @@ export default function ManageCategories() {
           </button>
         </div>
 
-        <button
-          type="submit"
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow"
-        >
-          {editingCategory ? 'Update Category' : 'Create Category'}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow"
+          >
+            {editingCategory ? 'Update Category' : 'Create Category'}
+          </button>
+          {editingCategory && (
+            <button
+              type="button"
+              onClick={resetForm}
+              className="text-gray-600 hover:underline text-sm"
+            >
+              Cancel edit
+            </button>
+          )}
+        </div>
       </form>
 
       <h2 className="text-2xl font-bold mt-12 mb-4 text-gray-800">Existing Categories</h2>
