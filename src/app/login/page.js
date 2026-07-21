@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import axios from 'axios';
 import Image from 'next/image';
 
@@ -61,6 +62,10 @@ function LoginForm() {
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
+        <p className="text-sm text-gray-500 text-center mt-5">
+          Need an admin account?{' '}
+          <Link href="/register" className="text-gray-900 font-medium hover:underline">Register</Link>
+        </p>
       </div>
     </div>
   );
