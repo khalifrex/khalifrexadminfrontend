@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Store, Users, ShieldCheck, LayoutGrid, Globe } from 'lucide-react';
+import { Store, Users, ShieldCheck, LayoutGrid, Globe, House } from 'lucide-react';
 
 const LOGO = 'https://res.cloudinary.com/khalifrex/image/upload/v1762704364/logo_ufb5hc.png';
 
 const SECTIONS = [
   { href: '/regions', label: 'Regions', desc: 'Create and manage regions', icon: Globe },
   { href: '/marketplace', label: 'Marketplaces', desc: 'Create and manage marketplaces', icon: Store },
+  { href: '/homepagemanager', label: 'Homepages', desc: 'Create and manage homepages', icon:House },
   { href: '/users', label: 'Users', desc: 'Manage buyer accounts', icon: Users },
   { href: '/sellers/review', label: 'Seller review', desc: 'KYC and verification queue', icon: ShieldCheck },
   { href: '/categories', label: 'Categories', desc: 'Manage product categories', icon: LayoutGrid },
