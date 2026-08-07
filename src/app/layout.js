@@ -16,7 +16,7 @@ export const metadata = {
   title: "Khalifrex Admin",
   description: "Khalifrex marketplace administration",
   icons: {
-    icon: "https://res.cloudinary.com/khalifrex/image/upload/v1762704364/logo_ufb5hc.png",
+    icon: "https://res.cloudinary.com/khalifrex/image/upload/v1784754991/khalifrex-avatar_nwfkqg.png",
   },
 };
 
