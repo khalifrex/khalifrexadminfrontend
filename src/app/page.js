@@ -9,6 +9,7 @@ import {
   LayoutGrid,
   Globe,
   House,
+  ClipboardCheck,
 } from "lucide-react";
 
 const LOGO =
@@ -43,6 +44,18 @@ const SECTIONS = [
     href: "/seller/onboarding",
     label: "Seller review",
     desc: "Seller verifications queue",
+    icon: ShieldCheck,
+  },
+  {
+    href: "/applications",
+    label: "Selling applications",
+    desc: "Category, brand, catalog & GTIN exemption applications",
+    icon: ClipboardCheck,
+  },
+  {
+    href: "/brand-registrations",
+    label: "Brand registrations",
+    desc: "Review trademark-based brand enrollments",
     icon: ShieldCheck,
   },
   {
