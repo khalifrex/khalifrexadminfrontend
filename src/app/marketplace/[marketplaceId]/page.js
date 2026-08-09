@@ -51,7 +51,7 @@ export default function MarketplaceById() {
             individualPerItemfee: m.individualPerItemfee ?? "",
             taxRate: m.settings?.taxRate ?? "",
             taxName: m.settings?.taxName || "",
-            // Locked after creation — display only, never sent on save.
+
             country: m.country || "",
             countryCode: m.countryCode || "",
             timezone: m.timezone || "",
@@ -83,9 +83,6 @@ export default function MarketplaceById() {
     setSuccess("");
     setSaving(true);
     try {
-      // country, countryCode, timezone, language, currency and nodeSegment
-      // are locked (see the read-only fields below) and intentionally left
-      // out of this payload so they can never change after creation.
       const body = {
         name: form.name.trim(),
         code: form.code.trim(),
