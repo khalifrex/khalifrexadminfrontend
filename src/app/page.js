@@ -10,6 +10,7 @@ import {
   Globe,
   House,
   ClipboardCheck,
+  Headset,
 } from "lucide-react";
 
 const LOGO =
@@ -57,6 +58,12 @@ const SECTIONS = [
     label: "Brand registrations",
     desc: "Review trademark-based brand enrollments",
     icon: ShieldCheck,
+  },
+  {
+    href: "/support",
+    label: "Support",
+    desc: "Live chat queue & buyer/seller support tickets",
+    icon: Headset,
   },
   {
     href: "/catalog/product-type",
