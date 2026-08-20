@@ -11,6 +11,7 @@ import {
   House,
   ClipboardCheck,
   Headset,
+  Gavel,
 } from "lucide-react";
 
 const LOGO =
@@ -64,6 +65,12 @@ const SECTIONS = [
     label: "Support",
     desc: "Live chat queue & buyer/seller support tickets",
     icon: Headset,
+  },
+  {
+    href: "/claims",
+    label: "Claims",
+    desc: "A-to-z Guarantee and SAFE-T claims queue",
+    icon: Gavel,
   },
   {
     href: "/catalog/product-type",
