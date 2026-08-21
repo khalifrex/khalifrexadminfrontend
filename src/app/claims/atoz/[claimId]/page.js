@@ -108,6 +108,21 @@ export default function AdminAtozClaimDetailPage() {
               <p className="text-xs text-[#9CA3AF] mt-1">
                 Responded {new Date(claim.sellerResponse.respondedAt).toLocaleString()}
               </p>
+              {claim.sellerResponse.evidence?.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {claim.sellerResponse.evidence.map((e, i) => (
+                    <a
+                      key={i}
+                      href={e.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs underline text-[#0C7FD2]"
+                    >
+                      {e.filename || `Evidence ${i + 1}`}
+                    </a>
+                  ))}
+                </div>
+              )}
             </>
           ) : (
             <p className="text-sm text-[#9CA3AF]">

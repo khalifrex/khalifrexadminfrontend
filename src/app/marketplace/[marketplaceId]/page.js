@@ -52,6 +52,26 @@ export default function MarketplaceById() {
             taxRate: m.settings?.taxRate ?? "",
             taxName: m.settings?.taxName || "",
 
+            taxEnabled: m.taxConfig?.enabled || false,
+            taxFullName: m.taxConfig?.taxFullName || "",
+            taxHeadline: m.taxConfig?.headline || "",
+            taxDescription: m.taxConfig?.description || "",
+            taxPoints: (m.taxConfig?.points || []).join("\n"),
+            taxIndividualKey: m.taxConfig?.fields?.individual?.key || "",
+            taxIndividualLabel: m.taxConfig?.fields?.individual?.label || "",
+            taxIndividualHelp: m.taxConfig?.fields?.individual?.help || "",
+            taxIndividualRegex:
+              m.taxConfig?.fields?.individual?.validationRegex || "",
+            taxIndividualMsg:
+              m.taxConfig?.fields?.individual?.validationMessage || "",
+            taxBusinessKey: m.taxConfig?.fields?.business?.key || "",
+            taxBusinessLabel: m.taxConfig?.fields?.business?.label || "",
+            taxBusinessHelp: m.taxConfig?.fields?.business?.help || "",
+            taxBusinessRegex:
+              m.taxConfig?.fields?.business?.validationRegex || "",
+            taxBusinessMsg:
+              m.taxConfig?.fields?.business?.validationMessage || "",
+
             country: m.country || "",
             countryCode: m.countryCode || "",
             timezone: m.timezone || "",
@@ -97,6 +117,36 @@ export default function MarketplaceById() {
         settings: {
           taxRate: form.taxRate !== "" ? Number(form.taxRate) : undefined,
           taxName: form.taxName.trim() || undefined,
+        },
+        taxConfig: {
+          enabled: form.taxEnabled,
+          taxFullName: form.taxFullName.trim(),
+          headline: form.taxHeadline.trim(),
+          description: form.taxDescription.trim(),
+          points: form.taxPoints
+            .split("\n")
+            .map((p) => p.trim())
+            .filter(Boolean),
+          fields: {
+            individual: form.taxIndividualKey.trim()
+              ? {
+                  key: form.taxIndividualKey.trim(),
+                  label: form.taxIndividualLabel.trim(),
+                  help: form.taxIndividualHelp.trim(),
+                  validationRegex: form.taxIndividualRegex.trim(),
+                  validationMessage: form.taxIndividualMsg.trim(),
+                }
+              : undefined,
+            business: form.taxBusinessKey.trim()
+              ? {
+                  key: form.taxBusinessKey.trim(),
+                  label: form.taxBusinessLabel.trim(),
+                  help: form.taxBusinessHelp.trim(),
+                  validationRegex: form.taxBusinessRegex.trim(),
+                  validationMessage: form.taxBusinessMsg.trim(),
+                }
+              : undefined,
+          },
         },
       };
 
@@ -391,6 +441,144 @@ export default function MarketplaceById() {
                 className={input}
               />
             </div>
+          </div>
+
+          <div className="border-t border-gray-200 pt-5">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-semibold text-gray-900">
+                Tax collection &amp; seller ID requirements
+              </p>
+              <label className="flex items-center gap-2 text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={form.taxEnabled}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, taxEnabled: e.target.checked }))
+                  }
+                  className="accent-gray-900"
+                />
+                Enabled
+              </label>
+            </div>
+
+            {form.taxEnabled && (
+              <div className="space-y-4">
+                <div>
+                  <label className={label}>Full tax name</label>
+                  <input
+                    value={form.taxFullName}
+                    onChange={set("taxFullName")}
+                    placeholder="e.g. Value Added Tax"
+                    className={input}
+                  />
+                </div>
+                <div>
+                  <label className={label}>Headline (shown to sellers)</label>
+                  <input
+                    value={form.taxHeadline}
+                    onChange={set("taxHeadline")}
+                    className={input}
+                  />
+                </div>
+                <div>
+                  <label className={label}>Description</label>
+                  <textarea
+                    value={form.taxDescription}
+                    onChange={set("taxDescription")}
+                    rows={3}
+                    className={`${input} resize-none`}
+                  />
+                </div>
+                <div>
+                  <label className={label}>
+                    Key points (one per line)
+                  </label>
+                  <textarea
+                    value={form.taxPoints}
+                    onChange={set("taxPoints")}
+                    rows={4}
+                    className={`${input} resize-none`}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="border border-gray-200 rounded-lg p-3 space-y-2">
+                    <p className="text-xs font-semibold text-gray-700 uppercase">
+                      Individual seller field
+                    </p>
+                    <input
+                      value={form.taxIndividualKey}
+                      onChange={set("taxIndividualKey")}
+                      placeholder="Field key, e.g. nationalId"
+                      className={input}
+                    />
+                    <input
+                      value={form.taxIndividualLabel}
+                      onChange={set("taxIndividualLabel")}
+                      placeholder="Label, e.g. National ID Number"
+                      className={input}
+                    />
+                    <input
+                      value={form.taxIndividualHelp}
+                      onChange={set("taxIndividualHelp")}
+                      placeholder="Help text"
+                      className={input}
+                    />
+                    <input
+                      value={form.taxIndividualRegex}
+                      onChange={set("taxIndividualRegex")}
+                      placeholder="Validation regex, e.g. ^\d{11}$"
+                      className={`${input} font-mono text-xs`}
+                    />
+                    <input
+                      value={form.taxIndividualMsg}
+                      onChange={set("taxIndividualMsg")}
+                      placeholder="Validation error message"
+                      className={input}
+                    />
+                  </div>
+
+                  <div className="border border-gray-200 rounded-lg p-3 space-y-2">
+                    <p className="text-xs font-semibold text-gray-700 uppercase">
+                      Business seller field
+                    </p>
+                    <input
+                      value={form.taxBusinessKey}
+                      onChange={set("taxBusinessKey")}
+                      placeholder="Field key, e.g. tin"
+                      className={input}
+                    />
+                    <input
+                      value={form.taxBusinessLabel}
+                      onChange={set("taxBusinessLabel")}
+                      placeholder="Label, e.g. Tax ID Number"
+                      className={input}
+                    />
+                    <input
+                      value={form.taxBusinessHelp}
+                      onChange={set("taxBusinessHelp")}
+                      placeholder="Help text"
+                      className={input}
+                    />
+                    <input
+                      value={form.taxBusinessRegex}
+                      onChange={set("taxBusinessRegex")}
+                      placeholder="Validation regex, e.g. ^\d{8,14}$"
+                      className={`${input} font-mono text-xs`}
+                    />
+                    <input
+                      value={form.taxBusinessMsg}
+                      onChange={set("taxBusinessMsg")}
+                      placeholder="Validation error message"
+                      className={input}
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Leave a field's key blank to not require it for that seller type. Sellers only see/complete the field matching their business type.
+                </p>
+              </div>
+            )}
           </div>
 
           <div>
